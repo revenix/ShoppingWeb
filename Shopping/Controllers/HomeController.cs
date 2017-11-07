@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shopping.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,11 @@ namespace Shopping.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Index(Usuario modelo)
+        {
+            return RedirectToAction("Contact");
         }
 
         public ActionResult About()
@@ -34,10 +40,9 @@ namespace Shopping.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(string asunto, string correoPara, string mensaje)
+        public ActionResult Login(Usuario modelo)
         {
-            
-            return Json(new { Success = true });
+            return RedirectToAction("Contact");
         }
     }
 }
