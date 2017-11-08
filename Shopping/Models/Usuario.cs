@@ -2,16 +2,16 @@
 {
     public class Usuario
     {
-
-        public string ID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string Id_user { get; set; }
+        public string Username { get; set; }
+        public string Contraseña { get; set; }
         public string Pregunta { get; set; }
         public string Respuesta { get; set; }
         public string Descripcion { get; set; }
-        public bool Flag { get; set; }
-        public int IdRol { get; set; }
-
+        public bool Estado { get; set; }
+        public int Id_rol { get; set; }
 
     }
+
+
 }

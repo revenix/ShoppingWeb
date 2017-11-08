@@ -4,20 +4,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Shopping.Controllers
 {
     public class HomeController : Controller
     {
+        UsuarioDA dao = new UsuarioDA();
+        ProductoDA daoPRO = new ProductoDA();
+
         public ActionResult Index()
         {
-            return View();
+           // var foto = daoPRO.nombrefoto();
+
+
+            return View(daoPRO.ListProductos().ToList());
+            
         }
-        [HttpPost]
-        public ActionResult Index(Usuario modelo)
+
+        public ActionResult convertImage(string id)
         {
-            return RedirectToAction("Contact");
+             Producto foto = daoPRO.nombrefoto(id);
+            return File(foto.foto1, "image/jpeg");
+
         }
+
+        /* [HttpPost]
+         public ActionResult Index(Usuario modelo)
+         {
+             return RedirectToAction("Contact");
+         }*/
 
         public ActionResult About()
         {
@@ -39,10 +55,32 @@ namespace Shopping.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Login(Usuario modelo)
         {
             return RedirectToAction("Contact");
+        }*/
+        [HttpPost]
+        public ActionResult Login(Usuario user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (dao.Login(user.Username, user.Contraseña))
+                {
+                 //   FormsAuthentication.SetAuthCookie(user.Username ,user. );
+                    return RedirectToAction("About", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
+            }
+            return View(user);
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
