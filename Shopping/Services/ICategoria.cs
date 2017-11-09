@@ -1,5 +1,4 @@
-﻿using Shopping.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Shopping.Services
 {
-    interface IProductos <T>
+    interface ICategoria <T>
     {
 
-        List<T> ListProductos();
+        List<T> ListCategoria();
 
 
-        Producto SelectProducto(string id);
 
 
     }

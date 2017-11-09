@@ -13,9 +13,11 @@ namespace Shopping.Models
     public class ProductoDA : IProductos<Producto>
     {
 
-        public Producto nombrefoto(string id_pro)
+        public byte[] nombrefoto(string id_pro)
         {
-            Producto obj = new Producto();
+            //Producto obj = new Producto();
+            byte[] foto = new byte[0];
+
             SqlConnection cn = AccesoBD.getConnection();
             SqlCommand cmd = new SqlCommand("sp_traerfoto", cn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -27,8 +29,10 @@ namespace Shopping.Models
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-               
-                    obj.foto1 = (byte[])(dr[0]);
+
+                    // obj.foto1 = (byte[])(dr[0]);
+                    foto = (byte[])(dr[0]);
+
                 }
                 dr.Close();
                 cn.Close();
@@ -37,7 +41,7 @@ namespace Shopping.Models
             {
                 throw ex;
             }
-            return obj;
+            return foto;
 
         }
 
@@ -79,5 +83,47 @@ namespace Shopping.Models
             }
             return lista;
         }
+
+        public Producto SelectProducto(string id)
+        {
+            Producto lista = new Producto();
+
+            SqlConnection cn = AccesoBD.getConnection();
+            SqlCommand cmd = new SqlCommand("sp_SelectProduct", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+
+            try
+            {
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Producto pro = new Producto()
+                    {
+                        cod_producto = dr[0].ToString(),
+                        nombre = dr[1].ToString(),
+                        precio_compra = Convert.ToDouble(dr[2]),
+                        precio_venta = Convert.ToDouble(dr[3]),
+                        stock = Convert.ToInt32(dr[4]),
+                        descripcion = dr[5].ToString(),
+                        id_marca = dr[6].ToString(),
+                        id_cat = dr[7].ToString()
+
+
+                    };
+                    lista = pro;
+                   // lista.Add(pro);
+                }
+                dr.Close();
+                cn.Close();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            return lista;
+        }
+
     }
 }

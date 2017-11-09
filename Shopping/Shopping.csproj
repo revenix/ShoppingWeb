@@ -147,12 +147,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\CategoriaDA.cs" />
     <Compile Include="Models\ProductoDA.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ICategoria.cs" />
     <Compile Include="Services\IProductos.cs" />
     <Compile Include="Services\IUsuario.cs" />
   </ItemGroup>
@@ -246,6 +249,7 @@
     <Content Include="Views\Shared\_EndWeb.cshtml" />
     <Content Include="Views\Shared\_SubMenu.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
+    <Content Include="Views\Home\Single.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

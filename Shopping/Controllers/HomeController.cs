@@ -12,6 +12,8 @@ namespace Shopping.Controllers
     {
         UsuarioDA dao = new UsuarioDA();
         ProductoDA daoPRO = new ProductoDA();
+        CategoriaDA daoCat = new CategoriaDA();
+
 
         public ActionResult Index()
         {
@@ -24,8 +26,8 @@ namespace Shopping.Controllers
 
         public ActionResult convertImage(string id)
         {
-             Producto foto = daoPRO.nombrefoto(id);
-            return File(foto.foto1, "image/jpeg");
+             var foto = daoPRO.nombrefoto(id);
+            return File (foto, "image/jpeg");
 
         }
 
@@ -55,11 +57,7 @@ namespace Shopping.Controllers
             return View();
         }
 
-        /*[HttpPost]
-        public ActionResult Login(Usuario modelo)
-        {
-            return RedirectToAction("Contact");
-        }*/
+      
         [HttpPost]
         public ActionResult Login(Usuario user)
         {
@@ -81,6 +79,18 @@ namespace Shopping.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Products()
+        {
+            
+            return View();
+        }
+
+        public ActionResult single()
+        {
+            return View(daoCat.ListCategoria().ToList());
+
         }
     }
 }
