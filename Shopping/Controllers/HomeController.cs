@@ -59,19 +59,20 @@ namespace Shopping.Controllers
 
       
         [HttpPost]
-        public ActionResult Login(Usuario user)
+        public ActionResult Login(Cliente user)
         {
             if (ModelState.IsValid)
             {
-                if (dao.Login(user.Username, user.Contraseña))
-                {
-                 //   FormsAuthentication.SetAuthCookie(user.Username ,user. );
-                    return RedirectToAction("About", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect!");
-                }
+                var usuario = dao.Login(user.email, user.contraseña);
+                //if ( )
+                //{
+                // //   FormsAuthentication.SetAuthCookie(user.Username ,user. );
+                //    return RedirectToAction("About", "Home");
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("", "Login data is incorrect!");
+                //}
             }
             return View(user);
         }

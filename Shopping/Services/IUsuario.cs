@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shopping.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Shopping.Services
      public  interface IUsuario<T>
     {
 
-        bool Login(string user , string pass);
+       Cliente  Login(string user , string pass);
 
     }
 }

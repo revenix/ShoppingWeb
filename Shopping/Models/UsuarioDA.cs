@@ -6,47 +6,26 @@ using Shopping.Services;
 using System.Data.SqlClient;
 using Shopping.DataBase;
 using System.Data;
+using Dapper;
 
 namespace Shopping.Models
 {
-    public class UsuarioDA : IUsuario<Usuario>
+    public class UsuarioDA : IUsuario<Cliente>
     {
-        public bool Login(string user, string pass)
+        public Cliente Login(string user, string pass)
         {
-            SqlConnection cn = AccesoBD.getConnection();
-            SqlCommand cmd = new SqlCommand("sp_login", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@user", user);
-            cmd.Parameters.AddWithValue("@pass", pass);
-            try
-            {
-                cn.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.HasRows)
-                {
-                    dr.Dispose();
-                    cmd.Dispose();
-                    return true;
-                }
-                else
-                {
-                    dr.Dispose();
-                    cmd.Dispose();
-                    return false;
-                }
-            }
-            catch (SqlException ex)
+            using (var cadena = AccesoBD.getConnection())
             {
 
-                throw ex;
+                var parameter = new DynamicParameters();
+                parameter.Add("@user", user);
+                parameter.Add("@pass", pass);
+
+                return cadena.QueryFirst<Cliente>("sp_login", parameter, commandType: CommandType.StoredProcedure);
+
+                 }
+
             }
-          
-        
-
-
-
-        }
 
         /*public List<Producto> ProductoNombre(string prod)
         {

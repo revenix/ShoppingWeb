@@ -11,10 +11,12 @@ namespace Shopping.Models
         public string nombre { get; set; }
         public string apellidos { get; set; }
         public string email { get; set; }
+        public string contraseña { get; set; }
         public string telefono { get; set; }
         public string direccion { get; set; }
         public string genero { get; set; }
-        public string id_user { get; set; }
+        public int Id_rol { get; set; }
+
 
     }
 
